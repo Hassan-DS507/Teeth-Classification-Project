@@ -292,7 +292,7 @@ def main():
     else:
         # Fallback static image
         st.image("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", 
-                use_column_width=True)
+                 use_container_width=True)
     
     # Project Overview
     st.markdown("""
@@ -326,7 +326,7 @@ def main():
     if uploaded_file is not None:
         # Display uploaded image
         img = Image.open(uploaded_file).convert('RGB')
-        st.image(img, caption="Uploaded Dental Image", use_column_width=True)
+        st.image(img, caption="Uploaded Dental Image", use_container_width=True)
         
         # Load model and predict
         try:
