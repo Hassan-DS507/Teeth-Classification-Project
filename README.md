@@ -103,7 +103,7 @@ Teeth-Classification-AI/
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/Teeth-Classification-AI.git
+   git clone https://github.com/Hassan-DS507/Teeth-Classification-Project.git
    cd Teeth-Classification-AI/Teeth-Classification-Streamlit
    ```
 
