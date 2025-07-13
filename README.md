@@ -68,7 +68,7 @@ The model identifies 7 dental conditions:
 - **Validation Accuracy**: 98%
 - **Faster inference** with comparable performance
 
-**Deployed Model**: Custom CNN (`best_teeth_model_try2.h5`)
+**Deployed Model**: Custom MobileNetV2 (`best_teeth_model_try2.h5`)
 
 ##  Demo Screenshots
 
