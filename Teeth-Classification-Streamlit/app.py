@@ -177,7 +177,7 @@ def load_lottie_animation():
 def load_model_safely():
     """Load model with error handling"""
     try:
-        return load_model("../saved_models/best_teeth_model.h5")
+        return load_model("../saved_models/best_teeth_model_try2.h5")
     except Exception as e:
         st.error(f"Failed to load model: {str(e)}")
         st.stop()
