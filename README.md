@@ -55,8 +55,8 @@ Two deep learning models were developed and compared:
 
 | Model             | Architecture        | Test Accuracy | Key Advantage                         |
 |------------------|---------------------|---------------|---------------------------------------|
-| Custom CNN        | Built from Scratch  | 96%           | Highest accuracy on test data         |
-| Transfer Learning | MobileNetV2         | 94%           | Faster inference, smaller size        |
+| Custom CNN        | Built from Scratch  | 91%           | Highest accuracy on test data         |
+| Transfer Learning | MobileNetV2         | 99%           | Faster inference, smaller size        |
 
 Deployment Decision: The Custom CNN model was selected for deployment.
 
