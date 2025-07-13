@@ -1,227 +1,160 @@
-# Teeth Classification Project
 
-A deep learning project for the classification of dental images into seven distinct categories. This model supports AI-driven dental diagnostics and aims to enhance diagnostic accuracy and improve patient outcomes in the healthcare industry.
+# Teeth Classification AI 
 
-![Project Banner](https://placehold.co/1200x400/007BFF/FFFFFF?text=Teeth+Classification+AI)
+![Project Banner](https://placehold.co/1200x400/007BFF/FFFFFF?text=AI-Powered+Dental+Diagnostics)
 
----
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://teeth-classification-project-hassan.streamlit.app)
 
-## Table of Contents
-- [Project Objective](#project-objective)
-- [Model Overview](#model-overview)
-- [Model Comparison](#model-comparison)
-- [Dataset](#dataset)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-  - [Data Preprocessing](#data-preprocessing)
-  - [Model Training](#model-training)
-  - [Evaluation](#evaluation)
-- [Web Deployment](#web-deployment)
-- [Results](#results)
-- [Future Work](#future-work)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+An advanced deep learning system for classifying dental X-ray images into 7 clinical categories, providing real-time diagnostic suggestions with clinical explanations and recommendations.
 
----
+##  Overview
 
-## Project Objective
+This AI-powered diagnostic tool helps dental professionals and students quickly analyze dental images by:
 
-The goal of this project is to develop a robust computer vision model capable of classifying dental images into seven categories:
+- Classifying images into 7 clinical categories
+- Providing confidence scores for predictions
+- Offering detailed clinical descriptions
+- Suggesting evidence-based recommendations
+- Linking to trusted external resources
 
-- CaS (Caries Susceptibility)
-- CoS (Composite Restoration)
-- Gum (Gingival Tissue)
-- MC (Metal Crown)
-- OC (Oral Cancer)
-- OLP (Oral Lichen Planus)
-- OT (Other)
+**Live Demo:** [https://teeth-classification-project-hassan.streamlit.app](https://teeth-classification-project-hassan.streamlit.app)
 
----
+##  Features
 
-## Model Overview
+- **Real-time AI Analysis**: Get instant classification results
+- **Clinical Insights**: Detailed descriptions for each condition
+- **Recommendations**: Actionable clinical suggestions
+- **Trusted Resources**: Direct links to MouthHealthy.org
+- **Visual UI**: Clean, professional interface with animations
+- **Responsive Design**: Works on desktop and mobile
 
-Two deep learning models were developed and compared:
+##  Tech Stack
 
-- Custom CNN (built from scratch using TensorFlow/Keras)
-- Transfer Learning model using MobileNetV2
+| Component          | Technology |
+|--------------------|------------|
+| Frontend           | Streamlit |
+| Deep Learning      | TensorFlow/Keras |
+| Image Processing   | PIL, OpenCV |
+| Data Handling      | NumPy, Pandas |
+| Visual Enhancements| streamlit-lottie |
+| Deployment         | Streamlit Cloud |
 
----
+##  Classification Categories
 
-## Model Comparison
+The model identifies 7 dental conditions:
 
-| Model             | Architecture        | Test Accuracy | Key Advantage                         |
-|------------------|---------------------|---------------|---------------------------------------|
-| Custom CNN        | Built from Scratch  | 91%           | Highest accuracy on test data         |
-| Transfer Learning | MobileNetV2         | 99%           | Faster inference, smaller size        |
+| Class | Icon | Condition Name | Description |
+|-------|------|----------------|-------------|
+| CaS  | Caries Superficial | Early stage tooth decay |
+| CoS  | Composite Superficial | Shallow dental filling |
+| Gum  | Gum Area | Gingival tissue focus |
+| MC   | Metal Crown | Artificial metal restoration |
+| OC  | Orthodontic Component | Braces/alignment devices |
+| OLP  | Oral Lichen Planus | Chronic inflammatory condition |
+| OT  | Other | Undefined condition |
 
-Deployment Decision: The Custom CNN model was selected for deployment.
+##  Model Performance
 
----
+### Custom CNN Model
+- **Validation Accuracy**: 93%
+- **Input Shape**: (224, 224, 3)
+- **Architecture**:
+  - Convolutional layers with ReLU activation
+  - MaxPooling layers
+  - Flatten + Dense layers
+  - Softmax output
 
-## Dataset
+### MobileNetV2 Transfer Learning
+- **Validation Accuracy**: 98%
+- **Faster inference** with comparable performance
 
-The dataset is organized into:
+**Deployed Model**: Custom CNN (`best_teeth_model_try2.h5`)
 
-- `Training/` - Images used to train the model
-- `Validation/` - Used for hyperparameter tuning and early stopping
-- `Testing/` - Used to evaluate model performance after training
+##  Demo Screenshots
 
-Each folder contains subfolders for each of the seven classes.
+| Upload Interface | Prediction Result | Clinical Recommendations |
+|------------------|-------------------|--------------------------|
+| ![Upload](https://placehold.co/600x400/003366/FFFFFF?text=Upload+Interface) | ![Result](https://placehold.co/600x400/006633/FFFFFF?text=Prediction+Result) | ![Recommendations](https://placehold.co/600x400/660033/FFFFFF?text=Clinical+Info) |
 
----
-
-## Project Structure
+##  Project Structure
 
 ```text
-teeth-classification-project/
-│
-├── data/
-│   └── Teeth_Dataset/
-│       ├── Training/
-│       ├── Validation/
-│       └── Testing/
-│
-├── notebooks/
-│   ├── Teeth_Classification_Project.ipynb      # Custom CNN
-│   └── Teeth_TransferLearning.ipynb            # MobileNetV2
-│
-├── saved_models/
-│   ├── best_teeth_model.h5                     # Custom CNN model
-│   └── my_model.h5                             # Alternative version
-│
+Teeth-Classification-AI/
 ├── Teeth-Classification-Streamlit/
-│   ├── app.py                                  # Streamlit app
-│   ├── app_1.py                                # Experimental version
-│   ├── images/                                 # Assets
-│   ├── config.toml
-│   ├── requirements.txt
-│   └── runtime.txt
-│
-├── report/
-│   └── Teeth_Classification.pdf
-├── .gitignore
-├── LICENSE
-├── README.md
-└── requirements.txt
+│   ├── app.py                  # Main Streamlit application
+│   ├── final_model/            # Trained models
+│   │   └── best_teeth_model_try2.h5
+│   ├── requirements.txt        # Python dependencies
+│   └── assets/                 # Static files
+├── notebooks/                  # Jupyter notebooks
+│   ├── Teeth_Classification_Project.ipynb
+│   └── Teeth_TransferLearning.ipynb
+├── data/                       # Dataset (not included in repo)
+├── README.md                   # This file
+└── LICENSE                     # MIT License
 ```
-## Getting Started
+
+##  Getting Started
 
 ### Prerequisites
-
-- Python 3.8 or higher
-- pip installed
+- Python 3.8+
+- pip
 
 ### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/Teeth-Classification-AI.git
+   cd Teeth-Classification-AI/Teeth-Classification-Streamlit
+   ```
 
-```bash
-git clone https://github.com/your-username/teeth-classification-project.git
-cd teeth-classification-project
+2. Create and activate virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```bash
-pip install -r requirements.txt
-```
-## Usage
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Data Preprocessing
+4. Run the Streamlit app:
+   ```bash
+   streamlit run app.py
+   ```
 
-The preprocessing pipeline is located in `Teeth_Classification_Project.ipynb`.
+##  External Resources
 
-It includes:
-- Image resizing and normalization
-- Conversion to NumPy arrays
-- Data augmentation to improve generalization
+Each diagnosis includes links to trusted dental health resources:
 
-### Model Training
+- [Tooth Decay](https://www.mouthhealthy.org/all-topics-a-z/tooth-decay)
+- [Dental Fillings](https://www.mouthhealthy.org/all-topics-a-z/fillings)
+- [Gum Disease](https://www.mouthhealthy.org/all-topics-a-z/gum-disease)
+- [Dental Crowns](https://www.mouthhealthy.org/all-topics-a-z/crowns)
+- [Orthodontics](https://www.mouthhealthy.org/all-topics-a-z/orthodontics)
+- [Oral Cancer](https://www.mouthhealthy.org/all-topics-a-z/oral-cancer)
+- [Dental Visits](https://www.mouthhealthy.org/all-topics-a-z/dental-visits)
 
-To train the model:
+##  Disclaimer
 
-- Run the notebook cells sequentially
-- You can choose between:
-  - A Custom CNN built from scratch
-  - A Transfer Learning model using MobileNetV2
+This application is for **educational purposes only** and not intended as a substitute for professional dental diagnosis or treatment. Always consult with a qualified dental professional for medical advice.
 
-Validation accuracy is used for:
-- Early stopping
-- Model checkpointing
+##  Future Roadmap
 
-### Evaluation
+- [ ] Add Arabic language support
+- [ ] Implement multi-class prediction visualization
+- [ ] Create video walkthrough/tutorial
+- [ ] Expand dataset with more diverse cases
+- [ ] Develop mobile app version
 
-After training, the model is evaluated on the test set using:
-- Test accuracy
-- Confusion matrix
-- Classification report (precision, recall, F1-score)
+##  Author
 
----
+**Hassan Abdel-Razeq**  
+- Email: [ha.razak.ds@gmail.com](mailto:ha.razak.ds@gmail.com)  
+- GitHub: [https://github.com/your-username](https://github.com/your-username)  
+- LinkedIn: [https://linkedin.com/in/hassan-abdul-razeq](https://linkedin.com/in/hassan-abdul-razeq)  
 
-## Web Deployment
+##  License
 
-The best model is deployed using **Streamlit**.
-
-**Features:**
-- Upload dental images
-- Get real-time predictions
-- Clean and responsive UI
-
-**To run locally:**
-
-```bash
-cd Teeth-Classification-Streamlit
-streamlit run app.py
-```
-You can optionally deploy the app using platforms like:
-- Streamlit Cloud
-- Render
-- Heroku
-
----
-
-## Results
-
-- **Best Test Accuracy:** 96% (Custom CNN)
-
-The notebook includes:
-- Class-wise precision, recall, and F1-score
-- Visualizations for training and validation performance
-
----
-
-## Future Work
-
-- Experiment with deeper architectures (e.g., ResNet, EfficientNet)
-- Apply advanced data augmentation techniques
-- Deploy the model as a cloud API or mobile app
-- Increase dataset diversity and size
-
----
-
-## Contributing
-
-Contributions are welcome and appreciated.
-
-**How to contribute:**
-1. Fork the repository
-2. Create a new feature branch
-3. Commit your changes
-4. Open a pull request on GitHub
-
----
-
-## License
-
-This project is licensed under the MIT License.  
-See the `LICENSE` file for full details.
-
----
-
-## Contact
-
-**Hassan Abdul-razeq**  
-Email: [ha.razak.ds@gmail.com](mailto:ha.razak.ds@gmail.com)  
-LinkedIn: [https://linkedin.com/in/hassan-abdul-razeq](https://linkedin.com/in/hassan-abdul-razeq)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
