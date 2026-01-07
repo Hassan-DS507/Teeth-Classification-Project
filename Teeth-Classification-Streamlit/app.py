@@ -253,10 +253,18 @@ def load_lottie_animation():
 def load_model_safely():
     """Load model with error handling"""
     try:
-        return load_model(
-        "Teeth-Classification-Streamlit/final_model/best_teeth_model_try2.h5",
-        compile=False
-    )
+        model = load_model(
+            "Teeth-Classification-Streamlit/final_model/best_teeth_model_try2.h5",
+            compile=False
+        )
+        
+        # Check if model is multi-input
+        if isinstance(model.input, list):
+            st.info(f"Model loaded successfully. It has {len(model.input)} inputs.")
+        else:
+            st.info(f"Model loaded successfully. It has 1 input.")
+            
+        return model
     except Exception as e:
         st.error(f"Failed to load model: {str(e)}")
         st.stop()
@@ -266,6 +274,21 @@ def preprocess_image(img):
     img = img.resize((224, 224))
     img_array = image.img_to_array(img) / 255.0
     return np.expand_dims(img_array, axis=0)
+
+def prepare_input_for_model(img_array, model):
+    """Prepare input based on model architecture"""
+    # Check model input structure
+    if isinstance(model.input, list):
+        # Model expects multiple inputs
+        num_inputs = len(model.input)
+        st.info(f"Model expects {num_inputs} inputs. Duplicating image for all inputs.")
+        
+        # Create list of identical inputs (common approach for siamese/dual-input models)
+        inputs = [img_array for _ in range(num_inputs)]
+        return inputs
+    else:
+        # Single input model
+        return img_array
 
 # ======================
 # App Layout (Enhanced)
@@ -337,14 +360,34 @@ def main():
             img_array = preprocess_image(img)
             
             with st.spinner("Analyzing dental image..."):
+                # Prepare input based on model architecture
+                model_input = prepare_input_for_model(img_array, model)
+                
                 # Simulate processing delay for better UX
                 import time
                 time.sleep(1)
                 
-                prediction = model.predict(img_array)
-                pred_index = np.argmax(prediction)
+                # Make prediction
+                prediction = model.predict(model_input)
+                
+                # Handle different prediction outputs
+                if isinstance(prediction, list):
+                    # If model returns multiple outputs, take the first one
+                    prediction = prediction[0]
+                
+                # Get class prediction
+                if len(prediction.shape) > 1 and prediction.shape[1] > 1:
+                    # Standard multi-class prediction
+                    pred_index = np.argmax(prediction)
+                    confidence = float(np.max(prediction)) * 100
+                else:
+                    # Binary or single output
+                    pred_index = int(prediction[0][0] > 0.5) if prediction.shape[1] == 1 else 0
+                    confidence = float(prediction[0][pred_index]) * 100
+                
+                # Ensure pred_index is within CLASS_NAMES bounds
+                pred_index = min(pred_index, len(CLASS_NAMES) - 1)
                 pred_class = CLASS_NAMES[pred_index]
-                confidence = float(np.max(prediction)) * 100
                 
                 # Get disease info
                 disease = DISEASE_INFO.get(pred_class, {})
@@ -407,6 +450,12 @@ def main():
             
         except Exception as e:
             st.error(f"An error occurred during prediction: {str(e)}")
+            st.error(f"Model input shape: {img_array.shape}")
+            st.error(f"Model architecture info:")
+            try:
+                model.summary(print_fn=lambda x: st.text(x))
+            except:
+                st.error("Could not display model summary")
             
     else:
         st.markdown("""
