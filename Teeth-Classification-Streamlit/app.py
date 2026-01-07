@@ -253,7 +253,10 @@ def load_lottie_animation():
 def load_model_safely():
     """Load model with error handling"""
     try:
-        return load_model("Teeth-Classification-Streamlit/final_model/best_teeth_model_try2.h5")
+        return load_model(
+        "Teeth-Classification-Streamlit/final_model/best_teeth_model_try2.h5",
+        compile=False
+    )
     except Exception as e:
         st.error(f"Failed to load model: {str(e)}")
         st.stop()
